@@ -10,6 +10,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject bullet, bulletSpawn;
     [SerializeField] private AudioSource gunSound, vhsSound;
 
+
+
+    // FLASHLIGHT VARIABLES
+    [SerializeField] private Light flashlight;
+    private bool flashlightOn = false;
+
     // Hidden variables
     private CharacterController controller;
     private Transform camera;
@@ -31,8 +37,10 @@ public class PlayerController : MonoBehaviour
     {
         HandleMovement();
         HandleLooking();
-        HandleVHS();
-        HandleShooting();
+        HandleFlashlight();
+        //HandleVHS();
+        //HandleShooting();
+
     }
 
     private void OnTriggerEnter(Collider collider)
@@ -63,6 +71,28 @@ public class PlayerController : MonoBehaviour
         transform.Rotate(Vector3.up * mouseX);
     }
 
+    private void HandleFlashlight()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (!flashlightOn) // Turn on
+            {
+                flashlight.enabled = true;
+                flashlightOn = true;
+            }
+            else // Turn off
+            {
+                flashlight.enabled = false;
+                flashlightOn = false;
+            }
+        }
+    }
+
+    //private void HandleInteraction()
+    //{
+
+    //}
+
     private void HandleVHS()
     {
         if (Input.GetMouseButtonDown(1))
@@ -84,15 +114,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void HandleShooting()
-    {
-        if (Input.GetMouseButtonDown(0) && (Time.time - fireTime >= bulletDelay))
-        {
-            GameObject myBullet = Instantiate(bullet, bulletSpawn.transform.position, Quaternion.identity);
-            myBullet.GetComponent<Bullet>().Fire(bulletSpeed, camera.transform.forward);
-            //gunSound.GetComponent<AudioClip>()
-            gunSound.Play();
-            fireTime = Time.time;
-        }
-    }
+    //private void HandleShooting()
+    //{
+    //    if (Input.GetMouseButtonDown(0) && (Time.time - fireTime >= bulletDelay))
+    //    {
+    //        GameObject myBullet = Instantiate(bullet, bulletSpawn.transform.position, Quaternion.identity);
+    //        myBullet.GetComponent<Bullet>().Fire(bulletSpeed, camera.transform.forward);
+    //        //gunSound.GetComponent<AudioClip>()
+    //        gunSound.Play();
+    //        fireTime = Time.time;
+    //    }
+    //}
 }
