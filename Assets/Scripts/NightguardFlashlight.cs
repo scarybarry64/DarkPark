@@ -4,21 +4,16 @@ using UnityEngine;
 
 public class NightguardFlashlight : MonoBehaviour
 {
-    [HideInInspector] public LayerMask mask;
+    public LayerMask layerMask;
 
     public bool playerDetected = false;
 
-    private void Awake()
-    {
-        mask = LayerMask.GetMask("Default");
-    }
-
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && !Physics.Linecast(transform.position, other.transform.position, mask))
+        if (other.CompareTag("Player") && !Physics.Linecast(transform.position, other.transform.position, layerMask))
         {
             playerDetected = true;
-            Debug.Log("HERE");
+            //Debug.Log("HERE");
         }
     }
 }

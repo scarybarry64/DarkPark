@@ -29,9 +29,15 @@ public class Nightguard : MonoBehaviour
     private bool walkFlag = false;
     private bool detectedFlag = false;
 
+    private float patrolSpeed, chaseSpeed;
+    private float anger = 1;
+    private bool angerFlag = false;
+
     private void Awake()
     {
         body = GetComponent<Rigidbody>();
+        patrolSpeed = anger / 2;
+        chaseSpeed = anger;
     }
 
     private void Update()
@@ -40,7 +46,13 @@ public class Nightguard : MonoBehaviour
         if (flashlight.playerDetected) // When player is first seen in flash light
         {
 
-            if (!Physics.Linecast(transform.position, player.transform.position, flashlight.mask)) // Chase while still seen
+            if (!angerFlag)
+            {
+                PissOff();
+                angerFlag = true;
+            }
+
+            if (!Physics.Linecast(transform.position, player.transform.position, flashlight.layerMask)) // Chase while still seen
             {
                 Chase();
                 if (!detectedFlag && !audioManager.IsPlaying("I SEE YOU"))
@@ -61,6 +73,7 @@ public class Nightguard : MonoBehaviour
                 audioManager.Play("dang it");
                 flashlight.playerDetected = false;
                 detectedFlag = false;
+                angerFlag = false;
             }
         }
         else
@@ -74,6 +87,7 @@ public class Nightguard : MonoBehaviour
 
     private void Chase()
     {
+        agent.speed = chaseSpeed;
         walkPoint = player.transform.position; // Gets current location of player
         timeSinceDetection = Time.time; // Gets current time;
         transform.LookAt(walkPoint);
@@ -82,6 +96,7 @@ public class Nightguard : MonoBehaviour
 
     private void Investigate()
     {
+        agent.speed = chaseSpeed;
         transform.LookAt(walkPoint);
         agent.SetDestination(walkPoint);
     }
@@ -116,8 +131,8 @@ public class Nightguard : MonoBehaviour
         //    //}
         //    agent.SetDestination(player.transform.position);
 
-        //}
-
+        //
+        agent.speed = patrolSpeed;
 
         if (!walkPointSet)
         {
@@ -169,10 +184,24 @@ public class Nightguard : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player Flashlight") && !Physics.Linecast(transform.position, player.transform.position, flashlight.mask))
+        //if (other.CompareTag("Player Flashlight") && !Physics.Linecast(transform.position, player.transform.position, flashlight.mask))
+        //{
+        //    flashlight.playerDetected = true;
+        //    Debug.Log("Hit by player flash");
+        //}
+
+        if (other.CompareTag("Player Flashlight") && !Physics.Linecast(transform.position, player.transform.position, flashlight.layerMask))
         {
+            //Debug.Log("Hit by flashlight");
             flashlight.playerDetected = true;
-            Debug.Log("Hit by player flash");
         }
+    }
+
+    // Gets faster every time you get away
+    private void PissOff()
+    {
+        patrolSpeed += 0.5f;
+        chaseSpeed += 1;
+        Debug.Log("PATROL: " + patrolSpeed + "\n CHASE: " + chaseSpeed);
     }
 }

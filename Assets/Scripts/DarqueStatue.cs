@@ -6,6 +6,9 @@ using UnityEngine.AI;
 public class DarqueStatue : MonoBehaviour
 {
 
+    public LayerMask layerMask;
+
+
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private LayerMask whatIsGround;
 
@@ -15,11 +18,15 @@ public class DarqueStatue : MonoBehaviour
 
     //private bool stalking = false;
     private bool inCamera = false;
-    private LayerMask mask;
+    private int anger = 0; // more quarters -> more anger -> faster movement
+    //public int maxAnger = 6;
+    private bool stunned = false; // player flashlight temp stuns
+    private float timeSinceStunned;
+    public float stunDuration; // how long stuns lasts
 
     private void Awake()
     {
-        mask = LayerMask.GetMask("Default");
+        agent.speed = anger;
     }
 
     private void Update()
@@ -30,15 +37,25 @@ public class DarqueStatue : MonoBehaviour
         body.rotation = Quaternion.Euler(0, angle, 0);
         direction.Normalize();
 
-        // Move towards player if not in camera view
-        if (inCamera && !Physics.Linecast(transform.position, player.transform.position, mask))
+        // Move towards player if not in camera view or stunned
+        if ((inCamera && !Physics.Linecast(transform.position, player.transform.position, layerMask)) || stunned)
         {
-            agent.SetDestination(transform.position);
+            //agent.SetDestination(transform.position);
+            agent.speed = 0;
         }
         else
         {
             //body.MovePosition(transform.position + (direction * speed * Time.deltaTime));
-            agent.SetDestination(player.transform.position);
+            //agent.SetDestination(player.transform.position);
+            //agent.speed = 0;
+            agent.speed = anger;
+        }
+
+        agent.SetDestination(player.transform.position);
+
+        if (Time.time - timeSinceStunned > stunDuration) // Stop being stunned after duration ends
+        {
+            stunned = false;
         }
     }
 
@@ -52,5 +69,29 @@ public class DarqueStatue : MonoBehaviour
     private void OnBecameVisible()
     {
         inCamera = true;
+    }
+
+    // Gets faster
+    public void PissOff()
+    {
+        //if (anger < maxAnger)
+        //{
+        //    anger++;
+        //    agent.speed = anger;
+        //}
+        anger += 2;
+        agent.speed = anger;
+    }
+
+    // Getting hit by player flashlight stuns statue for 2 sec
+    private void OnTriggerEnter(Collider other)
+    {
+
+        if (other.CompareTag("Player Flashlight") && !Physics.Linecast(transform.position, player.transform.position, layerMask))
+        {
+            Debug.Log("STUNNED");
+            stunned = true;
+            timeSinceStunned = Time.time;
+        }
     }
 }

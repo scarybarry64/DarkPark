@@ -10,10 +10,12 @@ public class PlayerInteract : MonoBehaviour
     [SerializeField] private AudioManager audioManager;
     [SerializeField] private Text InteractMessage;
     [SerializeField] private Image icon;
+    [SerializeField] private DarqueStatue statue;
 
     bool coin = false, teddy = false, candy = false, key = false;
     private GameObject TargetObj;
     private int interactType; //0 = interactable object, 1 = item pickup
+
 
     // Start is called before the first frame update
     void Start()
@@ -105,6 +107,7 @@ public class PlayerInteract : MonoBehaviour
                                 {
                                     addItem("coin");
                                     audioManager.Play("pickup");
+                                    statue.PissOff();
                                 }
                                 break;
                             case "Mary":
@@ -116,6 +119,7 @@ public class PlayerInteract : MonoBehaviour
                                     kidIcon("icon_Mary"); //show mary icon
                                     icon.enabled = false;
                                     Destroy(TargetObj);
+                                    statue.PissOff();
                                 }
                                 else
                                 {
@@ -132,6 +136,7 @@ public class PlayerInteract : MonoBehaviour
                                     kidIcon("icon_Timmy"); //show timmy icon
                                     icon.enabled = false;
                                     Destroy(TargetObj);
+                                    statue.PissOff();
                                 }
                                 else
                                 {
