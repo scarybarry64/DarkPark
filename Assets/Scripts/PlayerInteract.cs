@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿//Andrew's
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+
 
 public class PlayerInteract : MonoBehaviour
 {
@@ -11,19 +13,33 @@ public class PlayerInteract : MonoBehaviour
     [SerializeField] private Text InteractMessage;
     [SerializeField] private Image icon;
     [SerializeField] private DarqueStatue statue;
-
+    Image icon_Coin, icon_Candy, icon_Teddy, icon_Key;
     bool coin = false, teddy = false, candy = false, key = false;
     private GameObject TargetObj;
     private int interactType; //0 = interactable object, 1 = item pickup
 
-
     // Start is called before the first frame update
     void Start()
     {
+        getItemIcons();
         updateItems();
     }
 
     // Update is called once per frame
+    private void getItemIcons()
+    {
+        GameObject src = GameObject.Find("icon_Coin");
+        icon_Coin = src.GetComponent<Image>();
+
+        src = GameObject.Find("icon_Candy");
+        icon_Candy = src.GetComponent<Image>();
+
+        src = GameObject.Find("icon_Teddy");
+        icon_Teddy = src.GetComponent<Image>();
+
+        src = GameObject.Find("icon_Key");
+        icon_Key = src.GetComponent<Image>();
+    }
     void Update()
     {
         HandleInteraction();
@@ -35,18 +51,20 @@ public class PlayerInteract : MonoBehaviour
             case "coin":
                 if (coin)
                     return false;
-
+                icon_Coin.enabled = true;
                 coin = true;
                 printMessage("I got a coin from the fountain");
                 break;
             case "teddy":
                 teddy = true;
                 printMessage("I got a teddy bear");
+                icon_Teddy.enabled = true;
                 break;
             case "candy":
                 if (candy)
                     return false;
                 printMessage("I got candy");
+                icon_Candy.enabled = true;
                 candy = true;
                 break;
             case "key":
@@ -54,6 +72,7 @@ public class PlayerInteract : MonoBehaviour
                     return false;
                 audioManager.Play("keys");
                 printMessage("I got a key");
+                icon_Key.enabled = true;
                 key = true;
                 break;
             default:
@@ -85,6 +104,7 @@ public class PlayerInteract : MonoBehaviour
                                     {
                                         audioManager.Play("pickup");
                                         coin = false;
+                                        icon_Coin.enabled = false;
                                         addItem("candy");
                                     }
                                     else
@@ -118,6 +138,7 @@ public class PlayerInteract : MonoBehaviour
                                     printMessage("Mary has been rescued!");
                                     kidIcon("icon_Mary"); //show mary icon
                                     icon.enabled = false;
+                                    icon_Candy.enabled = false;
                                     Destroy(TargetObj);
                                     statue.PissOff();
                                 }
@@ -135,6 +156,7 @@ public class PlayerInteract : MonoBehaviour
                                     printMessage("Timmy has been rescued!");
                                     kidIcon("icon_Timmy"); //show timmy icon
                                     icon.enabled = false;
+                                    icon_Teddy.enabled = false;
                                     Destroy(TargetObj);
                                     statue.PissOff();
                                 }
@@ -152,6 +174,7 @@ public class PlayerInteract : MonoBehaviour
                                     audioManager.Play("unlock");
                                     printMessage("Unlocked with Key");
                                     TargetObj.name = "door2";
+                                    icon_Key.enabled = false;
                                     //Destroy(TargetObj);
                                 }
                                 else
@@ -169,6 +192,7 @@ public class PlayerInteract : MonoBehaviour
                                 if (coin)
                                 {
                                     coin = false;
+                                    icon_Coin.enabled = false;
                                     updateItems();
                                     audioManager.Play("VHS");
                                     printMessage("Thanks for the coin, loser!");
@@ -201,6 +225,7 @@ public class PlayerInteract : MonoBehaviour
             }
         }
     }
+
     private void kidIcon(string name)
     {
         GameObject src = GameObject.Find(name);
