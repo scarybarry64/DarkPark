@@ -58,6 +58,7 @@ public class Nightguard : MonoBehaviour
             }
             else // Resume patrolling if player got away
             {
+                audioManager.Play("dang it");
                 flashlight.playerDetected = false;
                 detectedFlag = false;
             }
