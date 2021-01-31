@@ -14,7 +14,8 @@ public class PlayerController : MonoBehaviour
 
     // FLASHLIGHT VARIABLES
     [SerializeField] private Light flashlight;
-    private bool flashlightOn = false;
+    private bool flashlightOn = true;
+    public bool detected = false; // Can guard see player?
 
     // Hidden variables
     private CharacterController controller;
@@ -43,15 +44,33 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter(Collider collider)
-    {
-        if (collider.CompareTag("Enemy"))
-        {
-            Debug.Log("DEAD");
+    //private void OnTriggerEnter(Collider collider)
+    //{
+    //    if (collider.CompareTag("Enemy"))
+    //    {
+    //        Debug.Log("DEAD");
 
-            SceneManager.LoadScene("MenuScene");
-        }
-    }
+    //        SceneManager.LoadScene("MenuScene");
+    //    }
+
+
+    //    if (collider.CompareTag("Nightguard Flashlight")) // Player enters guard light
+    //    {
+    //        detected = true;
+
+    //        Debug.Log("DETECTED!");
+    //    }
+    //}
+
+    //private void OnTriggerExit(Collider collider) // Player leaves guard light
+    //{
+    //    if (collider.CompareTag("Nightguard Flashlight"))
+    //    {
+    //        detected = false;
+
+    //        Debug.Log("NOT DETECTED!");
+    //    }
+    //}
 
     private void HandleMovement()
     {

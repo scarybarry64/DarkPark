@@ -6,6 +6,8 @@ using UnityEngine.AI;
 public class Nightguard : MonoBehaviour
 {
 
+    [SerializeField] private PlayerController player;
+
     // Patrolling variables
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private LayerMask whatIsGround;
@@ -15,15 +17,99 @@ public class Nightguard : MonoBehaviour
 
 
 
-    private void Update()
+    [SerializeField] private NightguardFlashlight flashlight;
+    [SerializeField] private float investigationDuration; // how long to spend investigating
+    private float timeSinceDetection; // When was the player last seen?
+
+
+    private float timeSinceStoppedMoving;
+    private float loiterDelay;
+    private Rigidbody body;
+    private bool walkFlag = false;
+    private bool detectedFlag = false;
+
+    private void Awake()
     {
-        Patrol();
+        body = GetComponent<Rigidbody>();
     }
 
+    private void Update()
+    {
 
+        if (flashlight.playerDetected) // When player is first seen in flash light
+        {
+
+            if (!Physics.Linecast(flashlight.transform.position, player.transform.position, flashlight.mask)) // Chase while still seen
+            {
+                Chase();
+                Debug.Log("CHASING");
+            }
+            else if (Time.time - timeSinceDetection <= investigationDuration) // Go to last known location
+            {
+                Investigate();
+                Debug.Log("INVESTIGATING");
+            }
+            else // Resume patrolling if player got away
+            {
+                flashlight.playerDetected = false;
+            }
+        }
+        else
+        {
+            Patrol();
+            Debug.Log("PATROLLING");
+        }
+
+        HandleMovementStopped();
+    }
+
+    private void Chase()
+    {
+        walkPoint = player.transform.position; // Gets current location of player
+        timeSinceDetection = Time.time; // Gets current time;
+        transform.LookAt(walkPoint);
+        agent.SetDestination(walkPoint);
+    }
+
+    private void Investigate()
+    {
+        transform.LookAt(walkPoint);
+        agent.SetDestination(walkPoint);
+    }
 
     private void Patrol()
     {
+        //if (!player.detected)
+        //{
+        //    if (!walkPointSet)
+        //    {
+        //        FindWalkPoint();
+        //    }
+        //    else
+        //    {
+        //        agent.SetDestination(walkPoint);
+        //    }
+
+        //    //Vector3 distanceToWalkPoint = transform.position - walkPoint;
+
+        //}
+        //else // If player seen in light, move towards where player was first seen in spotlight
+        //{
+
+        //    //if (!detectedFlag)
+        //    //{
+        //    //    detectedFlag = true;
+        //    //    walkPoint = player.transform.position;
+        //    //}
+        //    //else
+        //    //{
+        //    //    agent.SetDestination(player.transform.position);
+        //    //}
+        //    agent.SetDestination(player.transform.position);
+
+        //}
+
+
         if (!walkPointSet)
         {
             FindWalkPoint();
@@ -33,12 +119,6 @@ public class Nightguard : MonoBehaviour
             agent.SetDestination(walkPoint);
         }
 
-        Vector3 distanceToWalkPoint = transform.position - walkPoint;
-
-        if (distanceToWalkPoint.magnitude < 1)
-        {
-            walkPointSet = false;
-        }
     }
 
     private void FindWalkPoint()
@@ -53,7 +133,28 @@ public class Nightguard : MonoBehaviour
             walkPointSet = true;
         }
 
+
         
     }
 
+    private void HandleMovementStopped()
+    {
+        if (body.velocity.x < 1 && body.velocity.z < 1) // When not moving, move again after random time
+        {
+
+            if (!walkFlag)
+            {
+                walkFlag = true;
+                loiterDelay = Random.Range(0.25f, 10f);
+                timeSinceStoppedMoving = Time.time;
+            }
+            else if (Time.time - timeSinceStoppedMoving >= loiterDelay)
+            {
+                walkFlag = false;
+                walkPointSet = false;
+            }
+
+
+        }
+    }
 }
