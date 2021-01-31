@@ -8,6 +8,8 @@ TagManager:
   - Projectile
   - Nightguard Flashlight
   - Player Flashlight
+  - Interactable
+  - Item
   layers:
   - Default
   - TransparentFX
