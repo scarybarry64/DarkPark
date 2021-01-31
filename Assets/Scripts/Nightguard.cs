@@ -42,12 +42,12 @@ public class Nightguard : MonoBehaviour
             if (!Physics.Linecast(flashlight.transform.position, player.transform.position, flashlight.mask)) // Chase while still seen
             {
                 Chase();
-                Debug.Log("CHASING");
+                //Debug.Log("CHASING");
             }
             else if (Time.time - timeSinceDetection <= investigationDuration) // Go to last known location
             {
                 Investigate();
-                Debug.Log("INVESTIGATING");
+                //Debug.Log("INVESTIGATING");
             }
             else // Resume patrolling if player got away
             {
@@ -57,7 +57,7 @@ public class Nightguard : MonoBehaviour
         else
         {
             Patrol();
-            Debug.Log("PATROLLING");
+            //Debug.Log("PATROLLING");
         }
 
         HandleMovementStopped();
@@ -155,6 +155,15 @@ public class Nightguard : MonoBehaviour
             }
 
 
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player Flashlight") && !Physics.Linecast(transform.position, player.transform.position, flashlight.mask))
+        {
+            flashlight.playerDetected = true;
+            Debug.Log("Hit by player flash");
         }
     }
 }

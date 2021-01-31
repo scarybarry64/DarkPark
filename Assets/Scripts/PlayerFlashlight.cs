@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NightguardFlashlight : MonoBehaviour
+public class PlayerFlashlight : MonoBehaviour
 {
-    [HideInInspector] public LayerMask mask;
+    public LayerMask mask;
 
     public bool playerDetected = false;
 

@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
 
     // FLASHLIGHT VARIABLES
     [SerializeField] private Light flashlight;
+    [SerializeField] private MeshCollider flashlightCollider;
     private bool flashlightOn = true;
     public bool detected = false; // Can guard see player?
 
@@ -97,11 +98,13 @@ public class PlayerController : MonoBehaviour
             if (!flashlightOn) // Turn on
             {
                 flashlight.enabled = true;
+                flashlightCollider.enabled = true;
                 flashlightOn = true;
             }
             else // Turn off
             {
                 flashlight.enabled = false;
+                flashlightCollider.enabled = false;
                 flashlightOn = false;
             }
         }
@@ -112,26 +115,26 @@ public class PlayerController : MonoBehaviour
 
     //}
 
-    private void HandleVHS()
-    {
-        if (Input.GetMouseButtonDown(1))
-        {
-            vhsSound.Play();
+    //private void HandleVHS()
+    //{
+    //    if (Input.GetMouseButtonDown(1))
+    //    {
+    //        vhsSound.Play();
 
-            if (vhsEnabled)
-            {
-                vhsEnabled = false;
+    //        if (vhsEnabled)
+    //        {
+    //            vhsEnabled = false;
 
-                Debug.Log("VHS Disabled");
-            }
-            else
-            {
-                vhsEnabled = true;
+    //            Debug.Log("VHS Disabled");
+    //        }
+    //        else
+    //        {
+    //            vhsEnabled = true;
 
-                Debug.Log("VHS Enabled");
-            }
-        }
-    }
+    //            Debug.Log("VHS Enabled");
+    //        }
+    //    }
+    //}
 
     //private void HandleShooting()
     //{
@@ -144,4 +147,7 @@ public class PlayerController : MonoBehaviour
     //        fireTime = Time.time;
     //    }
     //}
+
+
+    
 }
