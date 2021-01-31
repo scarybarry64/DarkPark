@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject bullet, bulletSpawn;
     [SerializeField] private AudioSource gunSound, vhsSound;
 
-
+    [SerializeField] private AudioManager audioManager;
 
     // FLASHLIGHT VARIABLES
     [SerializeField] private Light flashlight;

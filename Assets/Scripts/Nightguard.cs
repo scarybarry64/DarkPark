@@ -7,6 +7,7 @@ public class Nightguard : MonoBehaviour
 {
 
     [SerializeField] private PlayerController player;
+    [SerializeField] private AudioManager audioManager;
 
     // Patrolling variables
     [SerializeField] private NavMeshAgent agent;
@@ -39,19 +40,26 @@ public class Nightguard : MonoBehaviour
         if (flashlight.playerDetected) // When player is first seen in flash light
         {
 
-            if (!Physics.Linecast(flashlight.transform.position, player.transform.position, flashlight.mask)) // Chase while still seen
+            if (!Physics.Linecast(transform.position, player.transform.position, flashlight.mask)) // Chase while still seen
             {
                 Chase();
+                if (!detectedFlag && !audioManager.IsPlaying("I SEE YOU"))
+                {
+                    audioManager.Play("I SEE YOU");
+                    detectedFlag = true;
+                }
                 //Debug.Log("CHASING");
             }
             else if (Time.time - timeSinceDetection <= investigationDuration) // Go to last known location
             {
                 Investigate();
+                detectedFlag = false;
                 //Debug.Log("INVESTIGATING");
             }
             else // Resume patrolling if player got away
             {
                 flashlight.playerDetected = false;
+                detectedFlag = false;
             }
         }
         else
