@@ -57,6 +57,12 @@ public class DarqueStatue : MonoBehaviour
         {
             stunned = false;
         }
+
+        // Kill player if touching them
+        if (Vector3.Distance(transform.position, player.transform.position) <= 1 && anger > 0)
+        {
+            player.Die();
+        }
     }
 
     // Track visiblity

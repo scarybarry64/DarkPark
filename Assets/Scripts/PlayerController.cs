@@ -110,6 +110,28 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.CompareTag("Enemy"))
+    //    {
+    //        SceneManager.LoadScene("DeathScene");
+    //        //Debug.Log("DEAD");
+    //    }
+    //}
+
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if (collision.collider.CompareTag("Enemy"))
+    //    {
+    //        SceneManager.LoadScene("DeathScene");
+    //    }
+    //}
+
+    public void Die()
+    {
+        SceneManager.LoadScene("DeathScene");
+    }
+
     //private void HandleInteraction()
     //{
 
@@ -149,5 +171,5 @@ public class PlayerController : MonoBehaviour
     //}
 
 
-    
+
 }

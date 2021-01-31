@@ -61,6 +61,12 @@ public class Nightguard : MonoBehaviour
                     detectedFlag = true;
                 }
                 //Debug.Log("CHASING");
+
+                // Kill player if touching them
+                if (Vector3.Distance(transform.position, player.transform.position) <= 1)
+                {
+                    player.Die();
+                }
             }
             else if (Time.time - timeSinceDetection <= investigationDuration) // Go to last known location
             {

@@ -18,6 +18,13 @@ public class PlayerInteract : MonoBehaviour
     private GameObject TargetObj;
     private int interactType; //0 = interactable object, 1 = item pickup
 
+    private PlayerController player;
+
+    private void Awake()
+    {
+        player = FindObjectOfType<PlayerController>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -201,6 +208,7 @@ public class PlayerInteract : MonoBehaviour
                                 else //you die
                                 {
                                     printMessage("AND NOW YOU DIE!");
+                                    TargetObj.GetComponent<Demon>().Reveal();
                                     Invoke("killPlayer", 2);
                                 }
                                 break;
@@ -234,7 +242,8 @@ public class PlayerInteract : MonoBehaviour
     }
     private void killPlayer()
     {
-        SceneManager.LoadScene("MenuScene");
+        //SceneManager.LoadScene("MenuScene");
+        player.Die();
     }
     private void printMessage(string text)
     {
