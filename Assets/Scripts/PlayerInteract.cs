@@ -173,6 +173,22 @@ public class PlayerInteract : MonoBehaviour
                                     InteractMessage.text = "I'm not going until I get Mr. Biggles!";
                                 }
                                 break;
+                            case "Johnny":
+                                audioManager.Play("yay");
+                                printMessage("Johnny has been rescued!");
+                                kidIcon("icon_Johnny"); //show timmy icon
+                                icon.enabled = false;
+                                Destroy(TargetObj);
+                                statue.PissOff();
+                                break;
+                            case "Janie":
+                                audioManager.Play("yay");
+                                printMessage("Janie has been rescued!");
+                                kidIcon("icon_Janie"); //show timmy icon
+                                icon.enabled = false;
+                                Destroy(TargetObj);
+                                statue.PissOff();
+                                break;
                             case "door": //locked door
                                 if (key)
                                 {
