@@ -15,6 +15,7 @@ public class PlayerInteract : MonoBehaviour
     [SerializeField] private DarqueStatue statue;
     Image icon_Coin, icon_Candy, icon_Teddy, icon_Key;
     bool coin = false, teddy = false, candy = false, key = false;
+    bool began = true;
     private GameObject TargetObj;
     private int interactType; //0 = interactable object, 1 = item pickup
 
@@ -141,6 +142,11 @@ public class PlayerInteract : MonoBehaviour
                                 {
                                     addItem("coin");
                                     audioManager.Play("pickup");
+                                    if (began)
+                                    {
+                                        began = false;
+                                        audioManager.Play("angry");
+                                    }
                                     statue.PissOff();
                                 }
                                 break;

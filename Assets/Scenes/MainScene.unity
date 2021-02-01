@@ -1163,11 +1163,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 237814480}
-  - component: {fileID: 237814478}
   - component: {fileID: 237814477}
   - component: {fileID: 237814481}
   - component: {fileID: 237814476}
   - component: {fileID: 237814479}
+  - component: {fileID: 237814478}
   m_Layer: 11
   m_Name: Darque Statue
   m_TagString: Enemy
@@ -1208,8 +1208,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 4
+  m_Radius: 1.1197915
+  m_Height: 5.583333
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!212 &237814478
@@ -1251,12 +1251,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 038cd8cfffceafc44be5d1500c50f71f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 79efccd3ff6757e469c964390d6080e7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 4, y: 4}
+  m_Size: {x: 2.2395833, y: 5.5833335}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -1292,7 +1292,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 237814475}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.02, y: 0.9, z: 0.05}
+  m_LocalPosition: {x: 6.02, y: 0.8, z: 0.05}
   m_LocalScale: {x: 0.29284465, y: 0.29284465, z: 0.29284465}
   m_Children: []
   m_Father: {fileID: 0}
@@ -7338,6 +7338,11 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     source: {fileID: 0}
+  - name: angry
+    clip: {fileID: 8300000, guid: 0d863433c7de2ff4b88c2b4d6b487c90, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
 --- !u!4 &1601899761
 Transform:
   m_ObjectHideFlags: 0
@@ -10265,14 +10270,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2108459466}
-  m_LocalRotation: {x: 0, y: 0.38268343, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: -11.94, y: 1.5, z: -25}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -16.6, y: 1.5, z: -16.56}
   m_LocalScale: {x: 2, y: 3, z: 1}
   m_Children:
   - {fileID: 84239944}
   m_Father: {fileID: 2088168996}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 45, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!65 &2108459468
 BoxCollider:
   m_ObjectHideFlags: 0
