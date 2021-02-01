@@ -132,6 +132,11 @@ public class PlayerController : MonoBehaviour
         SceneManager.LoadScene("DeathScene");
     }
 
+    public void Win()
+    {
+        SceneManager.LoadScene("YayScene");
+    }
+
     //private void HandleInteraction()
     //{
 

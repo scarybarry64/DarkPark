@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/DeathScene.unity
     guid: c45dcbdfdc7f5294cb2f4092e470b624
+  - enabled: 1
+    path: Assets/Scenes/YayScene.unity
+    guid: 2c37a5d57765a7249ac4406aa1f033e8
   m_configObjects: {}

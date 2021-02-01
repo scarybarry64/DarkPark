@@ -7,10 +7,12 @@ public class Demon : MonoBehaviour
     private SpriteRenderer falseForm, trueForm;
 
     private PlayerController player;
+    private AudioManager audioManager;
 
     private void Awake()
     {
         player = FindObjectOfType<PlayerController>();
+        audioManager = FindObjectOfType<AudioManager>();
         falseForm = GetComponent<SpriteRenderer>();
         trueForm = transform.GetChild(0).GetComponent<SpriteRenderer>();
         falseForm.enabled = true;
@@ -22,5 +24,7 @@ public class Demon : MonoBehaviour
     {
         falseForm.enabled = false;
         trueForm.enabled = true;
+        audioManager.Play("Nazgul");
+
     }
 }

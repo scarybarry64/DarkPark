@@ -196,7 +196,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sounds:
   - name: Die
-    clip: {fileID: 8300000, guid: 763f2b97ecc24a446999b186d32ed26d, type: 3}
+    clip: {fileID: 8300000, guid: 17570444ff7ae3e40905a15339ff42ed, type: 3}
     volume: 1
     pitch: 1
     source: {fileID: 0}
@@ -500,7 +500,7 @@ RectTransform:
   m_Children:
   - {fileID: 1074299718}
   - {fileID: 1899671951}
-  - {fileID: 1799238091}
+  - {fileID: 1448829196}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -731,7 +731,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1232580147}
   m_CullTransparentMesh: 0
---- !u!1 &1799238090
+--- !u!1 &1448829195
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -739,23 +739,23 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1799238091}
-  - component: {fileID: 1799238093}
-  - component: {fileID: 1799238092}
+  - component: {fileID: 1448829196}
+  - component: {fileID: 1448829198}
+  - component: {fileID: 1448829197}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Yay!
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &1799238091
+--- !u!224 &1448829196
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1799238090}
+  m_GameObject: {fileID: 1448829195}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -765,16 +765,16 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -40, y: 17}
+  m_AnchoredPosition: {x: -11, y: 35}
   m_SizeDelta: {x: -356, y: -269}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1799238092
+--- !u!114 &1448829197
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1799238090}
+  m_GameObject: {fileID: 1448829195}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
@@ -800,14 +800,15 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: YOU DIED . . . and lost your job!
---- !u!222 &1799238093
+  m_Text: Yay! You found all the kids. Lil stinkers. More importantly, you won't
+    be fired (for now).
+--- !u!222 &1448829198
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1799238090}
+  m_GameObject: {fileID: 1448829195}
   m_CullTransparentMesh: 0
 --- !u!1 &1899671950
 GameObject:

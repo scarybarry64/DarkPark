@@ -20,6 +20,8 @@ public class PlayerInteract : MonoBehaviour
 
     private PlayerController player;
 
+    private int kidCount = 0;
+
     private void Awake()
     {
         player = FindObjectOfType<PlayerController>();
@@ -50,6 +52,11 @@ public class PlayerInteract : MonoBehaviour
     void Update()
     {
         HandleInteraction();
+
+        if (kidCount >= 4)
+        {
+            player.Win();
+        }
     }
     private bool addItem(string name)
     {
@@ -255,6 +262,7 @@ public class PlayerInteract : MonoBehaviour
         GameObject src = GameObject.Find(name);
         Image img = src.GetComponent<Image>();
         img.enabled = true;
+        kidCount++;
     }
     private void killPlayer()
     {
